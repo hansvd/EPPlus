@@ -108,7 +108,10 @@ namespace OfficeOpenXml
 		internal ExcelRangeBase(ExcelWorksheet xlWorksheet, string address) :
 			base(xlWorksheet == null ? "" : xlWorksheet.Name, address)
 		{
-			_worksheet = xlWorksheet;
+		    if (xlWorksheet == null)
+		        return;
+
+            _worksheet = xlWorksheet;
             _workbook = _worksheet.Workbook;
             base.SetRCFromTable(_worksheet._package, null);
 			if (string.IsNullOrEmpty(_ws)) _ws = _worksheet == null ? "" : _worksheet.Name;

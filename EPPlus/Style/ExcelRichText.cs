@@ -37,6 +37,7 @@ using System.Text;
 using System.Xml;
 using System.Drawing;
 using System.Globalization;
+using OfficeOpenXml.Style.XmlAccess;
 
 namespace OfficeOpenXml.Style
 {
@@ -311,7 +312,18 @@ namespace OfficeOpenXml.Style
                 if (_callback != null) _callback();
             }
         }
-
+        const string COLOROBJ_PATH = "d:rPr/d:color";
+        /// <summary>
+        /// Color Xml
+        /// </summary>
+        public ExcelColorXml ColorXml
+        {
+            get
+            {
+                var node = TopNode.SelectSingleNode(COLOROBJ_PATH, NameSpaceManager);
+                return node == null ? null : new ExcelColorXml(NameSpaceManager, node);
+            }
+        }
         public ExcelRichTextCollection _collection { get; set; }
     }
 }
